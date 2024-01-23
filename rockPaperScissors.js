@@ -35,20 +35,16 @@ function determineRoundWinner(playerSelection, computerSelection) {
 }
 
 // Score
-function playGame() {
-  const scores = { player: 0, computer: 0 };
+function playRound(playerSelection) {
+  const computerSelection = getRandomChoice();
+  const roundResult = determineRoundWinner(playerSelection, computerSelection);
 
-  for (let round = 0; round < 5; round++) {
-    const userChoice = prompt('Enter Rock, paper, or Scissors:');
-    const computerChoice = getRandomChoice();
-    const roundResult = determineRoundWinner(userChoice, computerChoice);
+  document.getElementById('resultDisplay').textContent = roundResult;
+  updateScores(roundResult, scores);
 
-    console.log(roundResult);
-    updateScores(roundResult, scores);
+  if (scores.player === 5 || scores.computer === 5) {
+    announceGameResult();
   }
-
-  const gameResult = announceGameResult(scores);
-  alert(gameResult);
 }
 
 function updateScores(roundResult, scores) {
@@ -57,17 +53,57 @@ function updateScores(roundResult, scores) {
   } else if (roundResult.includes('Lose')) {
     scores.computer++;
   }
+
+  document.getElementById('playerScore').textContent = scores.player;
+  document.getElementById('computerScore').textContent = scores.computer;
 }
 
 // Announce Game Result
-function announceGameResult(scores) {
+function announceGameResult() {
+  let resultMessage = '';
   if (scores.player > scores.computer) {
-    return 'You win the game!';
+    resultMessage = 'You win the round!';
   } else if (scores.player < scores.computer) {
-    return 'You lose the game. :(';
+    resultMessage = 'You lose the round. :(';
   } else {
-    return "It's a tie!";
+    resultMessage = "It's a tie!";
+  }
+
+  // Update the result in HTML instead of using alert
+  document.getElementById('resultDisplay').textContent = resultMessage;
+
+  // Check the overall winner of the game
+  checkGameWinner();
+}
+
+// Function to check the overall winner of the game
+function checkGameWinner() {
+  if (scores.player === 5 || scores.computer === 5) {
+    let gameWinnerMessage = '';
+    if (scores.player > scores.computer) {
+      gameWinnerMessage = 'Congratulations! You are the overall winner!';
+    } else {
+      gameWinnerMessage = "Sorry, you didn't win the overall game.";
+    }
+
+    // Update the overall game winner result in HTML
+    document.getElementById('gameWinnerDisplay').textContent =
+      gameWinnerMessage;
   }
 }
 
-playGame();
+// Initial scores
+const scores = { player: 0, computer: 0 };
+
+// Event listeners for buttons
+document.getElementById('rockBtn').addEventListener('click', function () {
+  playRound('rock');
+});
+
+document.getElementById('paperBtn').addEventListener('click', function () {
+  playRound('paper');
+});
+
+document.getElementById('scissorsBtn').addEventListener('click', function () {
+  playRound('scissors');
+});
