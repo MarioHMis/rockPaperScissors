@@ -69,27 +69,20 @@ function announceGameResult() {
     resultMessage = "It's a tie!";
   }
 
-  // Update the result in HTML instead of using alert
   document.getElementById("resultDisplay").textContent = resultMessage;
-
-  // Check the overall winner of the game
-  checkGameWinner();
+  document.getElementById("gameWinnerDisplay").textContent = resultMessage;
+  document.getElementById("restartBtn").style.display = "block"; // Show restart button
 }
 
-// Function to check the overall winner of the game
-function checkGameWinner() {
-  if (scores.player === 5 || scores.computer === 5) {
-    let gameWinnerMessage = "";
-    if (scores.player > scores.computer) {
-      gameWinnerMessage = "Congratulations! You are the overall winner!";
-    } else {
-      gameWinnerMessage = "Sorry, you didn't win the overall game.";
-    }
-
-    // Update the overall game winner result in HTML
-    document.getElementById("gameWinnerDisplay").textContent =
-      gameWinnerMessage;
-  }
+// Function to reset the game
+function resetGame() {
+  scores.player = 0;
+  scores.computer = 0;
+  document.getElementById("playerScore").textContent = scores.player;
+  document.getElementById("computerScore").textContent = scores.computer;
+  document.getElementById("resultDisplay").textContent = "";
+  document.getElementById("gameWinnerDisplay").textContent = "";
+  document.getElementById("restartBtn").style.display = "none"; // Hide restart button
 }
 
 // Initial scores
@@ -106,4 +99,8 @@ document.getElementById("paperBtn").addEventListener("click", function () {
 
 document.getElementById("scissorsBtn").addEventListener("click", function () {
   playRound("scissors");
+});
+
+document.getElementById("restartBtn").addEventListener("click", function () {
+  resetGame();
 });
