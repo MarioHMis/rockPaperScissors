@@ -1,80 +1,95 @@
-// Computer Choice
+// Define las elecciones posibles
+const choices = ["rock", "paper", "scissors"];
+
+// Inicializa las puntuaciones del jugador y la computadora
+const scores = { player: 0, computer: 0 };
+
+/**
+ * Función para obtener una elección aleatoria de la computadora.
+ * @returns {string} - La elección de la computadora (rock, paper, scissors).
+ */
 function getRandomChoice() {
-  const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
-// Win Conditions
-function determineRoundWinner(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
+/**
+ * Determina el ganador de la ronda basado en las elecciones del jugador y la computadora.
+ * @param {string} playerChoice - La elección del jugador.
+ * @param {string} computerChoice - La elección de la computadora.
+ * @returns {string} - Resultado de la ronda.
+ */
+function determineRoundWinner(playerChoice, computerChoice) {
+  const winConditions = {
+    rock: "scissors",
+    paper: "rock",
+    scissors: "paper",
+  };
 
-  const winConditions = [
-    ["rock", "scissors"],
-    ["paper", "rock"],
-    ["scissors", "paper"],
-  ];
-
-  if (
-    winConditions.some(
-      ([player, computer]) =>
-        player === playerSelection && computer === computerSelection
-    )
-  ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}`;
-  } else if (
-    winConditions.some(
-      ([player, computer]) =>
-        player === computerSelection && computer === playerSelection
-    )
-  ) {
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+  if (playerChoice === computerChoice) {
+    return `It's a Tie! Both chose ${playerChoice}`;
+  } else if (winConditions[playerChoice] === computerChoice) {
+    return `You Win! ${playerChoice} beats ${computerChoice}`;
   } else {
-    return `It's a Tie! Both chose ${playerSelection}`;
+    return `You Lose! ${computerChoice} beats ${playerChoice}`;
   }
 }
 
-// Score
-function playRound(playerSelection) {
-  const computerSelection = getRandomChoice();
-  const roundResult = determineRoundWinner(playerSelection, computerSelection);
-
-  document.getElementById("resultDisplay").textContent = roundResult;
-  updateScores(roundResult);
-
-  if (scores.player === 5 || scores.computer === 5) {
-    announceGameResult();
-  }
-}
-
-function updateScores(roundResult) {
-  if (roundResult.includes("Win")) {
+/**
+ * Actualiza la puntuación y verifica si el juego ha terminado.
+ * @param {string} result - Resultado de la ronda.
+ */
+function updateScores(result) {
+  if (result.includes("Win")) {
     scores.player++;
-  } else if (roundResult.includes("Lose")) {
+  } else if (result.includes("Lose")) {
     scores.computer++;
   }
 
   document.getElementById("playerScore").textContent = scores.player;
   document.getElementById("computerScore").textContent = scores.computer;
+
+  if (scores.player === 5 || scores.computer === 5) {
+    announceGameResult();
+    disableGameButtons(); // Deshabilita los botones cuando el juego termina
+  }
 }
 
-// Announce Game Result
+/**
+ * Anuncia el resultado final del juego.
+ */
 function announceGameResult() {
-  let resultMessage = "";
-  if (scores.player > scores.computer) {
-    resultMessage = "Congratulations! You are the overall winner!";
-  } else if (scores.player < scores.computer) {
-    resultMessage = "Sorry, you didn't win the overall game.";
-  } else {
-    resultMessage = "It's a tie!";
-  }
+  let resultMessage =
+    scores.player > scores.computer
+      ? "Congratulations! You are the overall winner!"
+      : "Sorry, you didn't win the overall game.";
 
   document.getElementById("resultDisplay").textContent = resultMessage;
   document.getElementById("gameWinnerDisplay").textContent = resultMessage;
-  document.getElementById("restartBtn").style.display = "block"; // Show restart button
+  document.getElementById("restartBtn").style.display = "block";
 }
 
-// Function to reset the game
+/**
+ * Deshabilita los botones de juego para evitar más jugadas.
+ */
+function disableGameButtons() {
+  document.getElementById("rockBtn").disabled = true;
+  document.getElementById("paperBtn").disabled = true;
+  document.getElementById("scissorsBtn").disabled = true;
+}
+
+/**
+ * Habilita los botones de juego para permitir nuevas jugadas.
+ */
+function enableGameButtons() {
+  document.getElementById("rockBtn").disabled = false;
+  document.getElementById("paperBtn").disabled = false;
+  document.getElementById("scissorsBtn").disabled = false;
+}
+
+/**
+ * Reinicia el juego y restablece las puntuaciones.
+ */
 function resetGame() {
   scores.player = 0;
   scores.computer = 0;
@@ -82,25 +97,36 @@ function resetGame() {
   document.getElementById("computerScore").textContent = scores.computer;
   document.getElementById("resultDisplay").textContent = "";
   document.getElementById("gameWinnerDisplay").textContent = "";
-  document.getElementById("restartBtn").style.display = "none"; // Hide restart button
+  document.getElementById("restartBtn").style.display = "none";
+  enableGameButtons(); // Vuelve a habilitar los botones
 }
 
-// Initial scores
-const scores = { player: 0, computer: 0 };
+/**
+ * Maneja la selección del jugador y ejecuta una ronda.
+ * @param {string} playerChoice - La elección del jugador.
+ */
+function playRound(playerChoice) {
+  if (scores.player >= 5 || scores.computer >= 5) {
+    return; // No permite jugar más si el juego ha terminado
+  }
 
-// Event listeners for buttons
-document.getElementById("rockBtn").addEventListener("click", function () {
-  playRound("rock");
-});
+  const computerChoice = getRandomChoice();
+  const result = determineRoundWinner(playerChoice, computerChoice);
 
-document.getElementById("paperBtn").addEventListener("click", function () {
-  playRound("paper");
-});
+  document.getElementById("resultDisplay").textContent = result;
+  updateScores(result);
+}
 
-document.getElementById("scissorsBtn").addEventListener("click", function () {
-  playRound("scissors");
-});
+// Añade event listeners a los botones de elección
+document
+  .getElementById("rockBtn")
+  .addEventListener("click", () => playRound("rock"));
+document
+  .getElementById("paperBtn")
+  .addEventListener("click", () => playRound("paper"));
+document
+  .getElementById("scissorsBtn")
+  .addEventListener("click", () => playRound("scissors"));
 
-document.getElementById("restartBtn").addEventListener("click", function () {
-  resetGame();
-});
+// Añade event listener al botón de reinicio
+document.getElementById("restartBtn").addEventListener("click", resetGame);

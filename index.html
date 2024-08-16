@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, Paper, Scissors Game</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main>
@@ -12,30 +12,32 @@
         <h1>Rock, Paper, Scissors</h1>
       </header>
 
-      <div id="content" class="buttons">
-        <button id="rockBtn" class="btn btn-square">
-          <img src="images/piedra.avif" alt="Rock" />
+      <section id="gameContainer">
+        <div id="choicesContainer" class="choices">
+          <button id="rockBtn" class="choiceBtn">
+            <img src="images/roca.webp" alt="Rock" />
+          </button>
+          <button id="paperBtn" class="choiceBtn">
+            <img src="images/papel.webp" alt="Paper" />
+          </button>
+          <button id="scissorsBtn" class="choiceBtn">
+            <img src="images/tijeras.png" alt="Scissors" />
+          </button>
+        </div>
+
+        <div id="resultDisplay" class="result"></div>
+
+        <div id="scoreDisplay" class="score">
+          <p>Player: <span id="playerScore">0</span></p>
+          <p>Computer: <span id="computerScore">0</span></p>
+        </div>
+
+        <div id="gameWinnerDisplay" class="winner"></div>
+
+        <button id="restartBtn" class="btn-restart" style="display: none">
+          Restart Game
         </button>
-        <button id="paperBtn" class="btn btn-square">
-          <img src="images/paper.png" alt="Paper" />
-        </button>
-        <button id="scissorsBtn" class="btn btn-square">
-          <img src="images/scissors.png" alt="Scissors" />
-        </button>
-      </div>
-
-      <div id="resultDisplay" class="result"></div>
-
-      <div id="scoreDisplay">
-        <p>Player: <span id="playerScore">0</span></p>
-        <p>Computer: <span id="computerScore">0</span></p>
-      </div>
-
-      <div id="gameWinnerDisplay" class="winner"></div>
-
-      <button id="restartBtn" class="btn btn-restart" style="display: none">
-        Restart Game
-      </button>
+      </section>
     </main>
 
     <script src="rockPaperScissors.js"></script>
