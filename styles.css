@@ -12,15 +12,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #ececec;
-  color: #333;
-  background-color: ;
+  background: #161a30;
+  color: #31304d;
 }
 
 /* Main Container */
 main {
   text-align: center;
-  background: #fff;
+  background: #b6bbc4;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -32,7 +31,7 @@ main {
 header h1 {
   margin-bottom: 20px;
   font-size: 24px;
-  color: #333;
+  color: #31304d;
 }
 
 /* Button Styles */
@@ -66,7 +65,7 @@ header h1 {
 }
 
 .btn:active {
-  transform: scale(0.95);
+  transform: scale(2);
 }
 
 /* Result Display */
