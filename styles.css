@@ -1,0 +1,112 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styles */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #ececec;
+  color: #333;
+}
+
+/* Main Container */
+main {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  width: 100%;
+}
+
+/* Header Styles */
+header h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Button Styles */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.btn {
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn img {
+  width: 50px;
+  height: 50px;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* Result Display */
+#resultDisplay {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Score Display */
+#scoreDisplay {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+#scoreDisplay p {
+  margin: 10px 0;
+}
+
+/* Game Winner Display */
+#gameWinnerDisplay {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .btn img {
+    width: 60px;
+    height: 60px;
+  }
+}

@@ -8,20 +8,30 @@
   </head>
   <body>
     <main>
+      <header>
+        <h1>Rock, Paper, Scissors</h1>
+      </header>
+
       <div id="content" class="buttons">
-        <button id="rockBtn" class="btn btn-square">Rock</button>
-        <button id="paperBtn" class="btn btn-square">Paper</button>
-        <button id="scissorsBtn" class="btn btn-square">Scissors</button>
+        <button id="rockBtn" class="btn btn-square">
+          <img src="icons/rock.png" alt="Rock" />
+        </button>
+        <button id="paperBtn" class="btn btn-square">
+          <img src="icons/paper.png" alt="Paper" />
+        </button>
+        <button id="scissorsBtn" class="btn btn-square">
+          <img src="icons/scissors.png" alt="Scissors" />
+        </button>
       </div>
 
-      <div id="resultDisplay"></div>
+      <div id="resultDisplay" class="result"></div>
 
       <div id="scoreDisplay">
         <p>Player: <span id="playerScore">0</span></p>
         <p>Computer: <span id="computerScore">0</span></p>
       </div>
 
-      <div id="gameWinnerDisplay"></div>
+      <div id="gameWinnerDisplay" class="winner"></div>
     </main>
 
     <script src="rockPaperScissors.js"></script>
